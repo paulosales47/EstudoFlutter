@@ -11,16 +11,10 @@ void main(){
         color: Colors.black,
         border: Border.all(width: 3, color: Colors.white)
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("T1"),
-          Text("T2"),
-          Text("T3"),
-          Text("T4"),
-        ],
-      ),
+      child: Image.asset(
+        "images/cidade.jpg",
+        fit: BoxFit.scaleDown
+      )
     ),
   ));
 }
