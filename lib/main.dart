@@ -4,80 +4,56 @@ import 'package:flutter/material.dart';
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomeStateFul()
+    home: Home(),
   ));
 }
 
-
-class HomeStateFul extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _HomeStateFulState createState() => _HomeStateFulState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomeStateFulState extends State<HomeStateFul> {
+class _HomeState extends State<Home> {
 
-  var _texto = "App Estudo";
+  var _frase = "TESTE";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("App Estudo"),
+        title: Text("Frases do dia"),
         backgroundColor: Colors.green,
       ),
       body: Container(
+        padding: EdgeInsets.all(16),
+        width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              onPressed: (){
-                setState(() {
-                  _texto = "Curso Flatter";
-                });
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+            Image.asset("images/logo.png"),
+            Text(
+              _frase,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: 17,
               ),
-              child: Text("Clique aqui"),
             ),
-            Text(_texto)
+            ElevatedButton(
+                onPressed: (){},
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green)
+                ),
+                child: Text(
+                  "Nova frase",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold
+                  ),
+                )
+            )
           ],
         ),
       )
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    var _titulo = "App Estudo";
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_titulo),
-        backgroundColor: Colors.green,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Text("Conteúdo principal"),
-      ),
-      bottomNavigationBar: BottomAppBar(
-          color: Colors.lightGreen,
-          child: Padding(
-            padding: EdgeInsets.all(25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Texto 1"),
-                Text("Texto 2"),
-                Text("Texto 3"),
-                Text("Texto 4"),
-              ],
-            ),
-          )
-      ),
     );
   }
 }
