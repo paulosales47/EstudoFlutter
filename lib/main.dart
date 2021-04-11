@@ -3,18 +3,31 @@ import 'package:flutter/material.dart';
 
 void main(){
   runApp(MaterialApp(
-    title: "App Estudo",
     debugShowCheckedModeBanner: false,
-    home: Container(
-      margin: EdgeInsets.only(top: 40),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        border: Border.all(width: 3, color: Colors.white)
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text("App Estudo"),
+        backgroundColor: Colors.green,
       ),
-      child: Image.asset(
-        "images/cidade.jpg",
-        fit: BoxFit.scaleDown
-      )
-    ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Text("Conteúdo principal"),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.lightGreen,
+        child: Padding(
+          padding: EdgeInsets.all(25),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Texto 1"),
+              Text("Texto 2"),
+              Text("Texto 3"),
+              Text("Texto 4"),
+            ],
+          ),
+        )
+      ),
+    )
   ));
 }
