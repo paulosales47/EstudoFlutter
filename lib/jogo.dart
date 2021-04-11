@@ -30,7 +30,12 @@ class _JogoState extends State<Jogo> {
                     fontSize: 25,
                     fontWeight: FontWeight.bold
                 )),
-            Image.asset("images/jokenpo/padrao.png"),
+            GestureDetector(
+              onTap: (){print("clique");},
+              onDoubleTap: (){print("double clique");},
+              onLongPress: (){print("clique longo");},
+              child: Image.asset("images/jokenpo/padrao.png"),
+            ),
             Text(_textoResultado),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
