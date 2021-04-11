@@ -52,6 +52,10 @@ flutter:
     - images/cidade.jpg
     - images/cidade2.jpg
     - images/logo.png
+    - images/jokenpo/padrao.png
+    - images/jokenpo/papel.png
+    - images/jokenpo/pedra.png
+    - images/jokenpo/tesoura.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
