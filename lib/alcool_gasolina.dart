@@ -10,6 +10,30 @@ class AlcoolGasolina extends StatefulWidget {
 class _AlcoolGasolinaState extends State<AlcoolGasolina> {
 
   var _resultado = "TESTE";
+  var _textEditingControllerAlcool = TextEditingController();
+  var _textEditingControllerGasolina = TextEditingController();
+
+  void _calcular(){
+    var precoAlcool = double.tryParse(_textEditingControllerAlcool.text) ?? -1;
+    var precoGasolina = double.tryParse(_textEditingControllerGasolina.text) ?? -1;
+
+    print(precoAlcool);
+    print(precoGasolina);
+
+    if(precoAlcool > 0 && precoGasolina > 0){
+      double razao = precoAlcool / precoGasolina;
+      if(razao >= 0.7)
+        _resultado = "Gasolina. ${(razao*100).toStringAsFixed(2)}%";
+      else
+        _resultado = "Álcool. ${(razao*100).toStringAsFixed(2)}%";
+    }
+    else{
+      _resultado = "Valores invalidos";
+    }
+
+    setState(() {});
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +61,7 @@ class _AlcoolGasolinaState extends State<AlcoolGasolina> {
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: TextField(
+                  controller: _textEditingControllerAlcool,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: "Preço do Álcool, ex.: 3.59"
@@ -46,6 +71,7 @@ class _AlcoolGasolinaState extends State<AlcoolGasolina> {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                 child: TextField(
+                  controller: _textEditingControllerGasolina,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: "Preço da Gasolina, ex.: 5.90"
@@ -53,8 +79,7 @@ class _AlcoolGasolinaState extends State<AlcoolGasolina> {
                 ),
               ),
               ElevatedButton(
-                onPressed: (){
-                },
+                onPressed: _calcular,
                 child: Text("Calcular", style: TextStyle(fontSize: 20)),
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
