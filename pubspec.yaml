@@ -57,6 +57,17 @@ flutter:
     - images/jokenpo/pedra.png
     - images/jokenpo/tesoura.png
     - images/alcool_gasolina/logo.png
+    - images/atm_consultoria/cliente1.png
+    - images/atm_consultoria/cliente2.png
+    - images/atm_consultoria/detalhe_cliente.png
+    - images/atm_consultoria/detalhe_contato.png
+    - images/atm_consultoria/detalhe_empresa.png
+    - images/atm_consultoria/detalhe_servico.png
+    - images/atm_consultoria/logo.png
+    - images/atm_consultoria/menu_cliente.png
+    - images/atm_consultoria/menu_contato.png
+    - images/atm_consultoria/menu_empresa.png
+    - images/atm_consultoria/menu_servico.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
