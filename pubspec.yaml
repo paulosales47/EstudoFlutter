@@ -68,6 +68,11 @@ flutter:
     - images/atm_consultoria/menu_contato.png
     - images/atm_consultoria/menu_empresa.png
     - images/atm_consultoria/menu_servico.png
+    - images/cara_coroa/botao_jogar.png
+    - images/cara_coroa/botao_voltar.png
+    - images/cara_coroa/logo.png
+    - images/cara_coroa/moeda_cara.png
+    - images/cara_coroa/moeda_coroa.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
