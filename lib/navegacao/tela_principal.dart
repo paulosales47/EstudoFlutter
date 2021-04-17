@@ -18,7 +18,7 @@ class TelaPrincipal extends StatelessWidget {
             ElevatedButton(onPressed: (){
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TelaSecundaria() ));
+                  MaterialPageRoute(builder: (context) => TelaSecundaria(valor: "teste") ));
             }, child: Text("Ir para tela secundária"))
           ],
         ),
