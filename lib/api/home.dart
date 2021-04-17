@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart ';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -10,16 +11,25 @@ class Home extends StatefulWidget {
 
 class _State extends State<Home> {
 
+  String _logradouro = "";
+  String _bairro = "";
+  String _localidade = "";
+  var _cep = TextEditingController();
+
   void _recuperarCep() async {
-    String cep = "01001000";
+
+    String cep = _cep.text ?? "01001000";
     String parametro = "/ws/${cep}/json/";
     String urlApiCep = "viacep.com.br";
 
     http.Response resposta = await http.get(Uri.https(urlApiCep, parametro));
-    Map<String, dynamic> retorno = json.decode(resposta.body);
+    Map<String, dynamic> endereco = json.decode(resposta.body);
 
-    print(resposta.statusCode);
-    print(retorno["logradouro"]);
+    setState(() {
+      _logradouro = endereco["logradouro"];
+      _bairro = endereco["bairro"];
+      _localidade = endereco["localidade"];
+    });
 
   }
 
@@ -28,7 +38,7 @@ class _State extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Buscar CEP"),
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.cyan,
       ),
       body: Container(
         width: double.infinity,
@@ -37,7 +47,26 @@ class _State extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ElevatedButton(onPressed: _recuperarCep, child: Text("Recuperar CEP"))
+            TextField(
+              keyboardType: TextInputType.number,
+              controller: _cep,
+              decoration: InputDecoration(
+                labelText: "Informe um CEP",
+              ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 25), child: ElevatedButton(onPressed: _recuperarCep, child: Text("Recuperar CEP")),),
+            Padding(
+              padding: EdgeInsets.only(top: 25),
+              child: Text("Logradouro: ${_logradouro}", style: TextStyle(fontSize: 20),)
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: 25),
+                child: Text("Bairro: ${_bairro}", style: TextStyle(fontSize: 20),)
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: 25),
+                child: Text("Localidade: ${_localidade}", style: TextStyle(fontSize: 20),)
+            ),
           ],
         ),
       ),
