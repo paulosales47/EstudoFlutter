@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_estudo/navegacao/tela_secundaria.dart';
 
 class TelaPrincipal extends StatelessWidget {
   @override
@@ -16,9 +15,7 @@ class TelaPrincipal extends StatelessWidget {
         child: Column(
           children: [
             ElevatedButton(onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TelaSecundaria(valor: "teste") ));
+              Navigator.pushNamed(context, "/secundaria");
             }, child: Text("Ir para tela secundária"))
           ],
         ),
