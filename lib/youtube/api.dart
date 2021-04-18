@@ -1,7 +1,8 @@
+import 'package:flutter_estudo/youtube/model/video.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-final CHAVE_YOUTUBE_API = '';
+final CHAVE_YOUTUBE_API = 'AIzaSyCO5dkVVRmfx8jvYUxBLOMh8b8XCtqzNlQ';
 final CHAVE_CANAL = 'UCVHFbqXqoYvEWM1Ddxl0QDg';
 final URL_BASE = 'www.googleapis.com';
 
@@ -20,9 +21,16 @@ class ApiYoutube{
     });
 
     final resposta = await http.get(uri);
-    Map<String, dynamic> respostaJson = json.decode(resposta.body);
 
-    print(respostaJson["items"][0]["snippet"]["title"]);
+    if(resposta.statusCode == 200){
+      Map<String, dynamic> respostaJson = json.decode(resposta.body);
+
+      List<Video> videos = respostaJson["items"].map<Video>(
+          (map) => Video.fromJson(map)
+      ).toList();
+
+    }
+
 
   }
 }
