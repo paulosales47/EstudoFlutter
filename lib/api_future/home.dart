@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
 
   Future<List<Postagem>> _recuperarPostagens() async{
     List<Postagem> postagens = [];
-    http.Response resposta = await http.get(Uri.https(_urlApi, "/posts"));
+    var resposta = await http.get(Uri.https(_urlApi, "/posts"));
     var jsonItensResposta = json.decode(resposta.body);
 
     for(var post in jsonItensResposta){
@@ -30,40 +30,110 @@ class _HomeState extends State<Home> {
     return postagens;
   }
 
+  void _cadastrarPostagem() async {
+    var resposta = await http.post(
+    Uri.https(_urlApi, "/posts"),
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    body: json.encode({
+      "userId": 120,
+      "id": null,
+      "title": "TITULO",
+      "body": "CORPO DA POSTAGEM"
+    }),
+  );
+  print(resposta.statusCode);
+  print(resposta.body);
+  }
+
+  void _removerPostagem() async {
+    var resposta = await http.delete(Uri.https(_urlApi, "/posts/2"));
+    print(resposta.statusCode);
+    print(resposta.body);
+  }
+
+  void _atualizarPostagem() async {
+    var resposta = await http.put(
+    Uri.https(_urlApi, "/posts/2"),
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    body: json.encode({
+      "userId": 120,
+      "id": null,
+      "title": "TITULO ALTERADO",
+      "body": "CORPO DA POSTAGEM ALTERADO"
+    }),
+  );
+  print(resposta.statusCode);
+  print(resposta.body);
+  }
+
+  void _atualizarCampoPostagem() async {
+    var resposta = await http.patch(
+      Uri.https(_urlApi, "/posts/2"),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: json.encode({
+        "title": "TITULO ALTERADO PATH",
+      }),
+    );
+    print(resposta.statusCode);
+    print(resposta.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consumo de serviços com Future"),
       ),
-      body: FutureBuilder<List<Postagem>>(
-        future: _recuperarPostagens(),
-        builder: (context, snapshot){
+      body: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                ElevatedButton(onPressed: (){
+                  _cadastrarPostagem();
+                }, child: Text("Salvar")),
+                Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: ElevatedButton(onPressed: (){
+                    _atualizarCampoPostagem();
+                    _atualizarPostagem();
+                  }, child: Text("Atualizar")),
+                ),
+                ElevatedButton(onPressed: (){
+                  _removerPostagem();
+                }, child: Text("Remover")),
+              ],
+            ),
+            Expanded(
+                child: FutureBuilder<List<Postagem>>(
+                  future: _recuperarPostagens(),
+                  builder: (context, snapshot){
 
-          if(snapshot.connectionState == ConnectionState.waiting)
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+                    if(snapshot.connectionState == ConnectionState.waiting)
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
 
-          if(snapshot.connectionState == ConnectionState.done){
-            return ListView.builder (
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index){
-                Postagem post = snapshot.data[index];
-                return ListTile(
-                  title: Text(post.title),
-                  subtitle: Text(post.body),
-                );
-              },
-            );
-          }
+                    if(snapshot.connectionState == ConnectionState.done){
+                      return ListView.builder (
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index){
+                          Postagem post = snapshot.data[index];
+                          return ListTile(
+                            title: Text(post.title),
+                            subtitle: Text(post.body),
+                          );
+                        },
+                      );
+                    }
 
-
-          print(snapshot.connectionState);
-
-
-          return Text("Erro ao carregar as informações");
-        },
+                    return Text("Erro ao carregar as informações");
+                  },
+                )
+            )
+          ],
+        ),
       ),
     );
   }

@@ -29,4 +29,13 @@ class Postagem {
   set userId(int value) {
     _userId = value;
   }
+
+  Map toJson(){
+    return {
+      "userId": this._userId,
+      "id": this._id,
+      "title": this._title,
+      "body": this._body
+    };
+  }
 }
