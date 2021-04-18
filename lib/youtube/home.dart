@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart ';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_estudo/youtube/biblioteca.dart';
+import 'package:flutter_estudo/youtube/em_alta.dart';
+import 'package:flutter_estudo/youtube/inicio.dart';
+import 'package:flutter_estudo/youtube/inscricao.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +14,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _indiceNavegacao = 0;
+  List<Widget> _telas = [
+    Inicio(),
+    EmAlta(),
+    Inscricao(),
+    Biblioteca(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +50,12 @@ class _HomeState extends State<Home> {
               onPressed: (){}),
         ],
       ),
-      body: Container(),
+      body: Container(
+        child: _telas[_indiceNavegacao],
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        //fixedColor: Colors.red,
-        type: BottomNavigationBarType.shifting,
+        fixedColor: Colors.red,
+        type: BottomNavigationBarType.fixed,
         currentIndex: _indiceNavegacao,
         onTap: (indice){
           setState(() {
@@ -52,22 +64,18 @@ class _HomeState extends State<Home> {
         },
         items: [
           BottomNavigationBarItem(
-            backgroundColor: Colors.orange,
             label: "Início",
             icon: Icon(Icons.home)
           ),
           BottomNavigationBarItem(
-              backgroundColor: Colors.red,
               label: "Em alta",
               icon: Icon(Icons.whatshot)
           ),
           BottomNavigationBarItem(
-              backgroundColor: Colors.blue,
               label: "Inscrções",
               icon: Icon(Icons.home)
           ),
           BottomNavigationBarItem(
-              backgroundColor: Colors.green,
               label: "Biblioteca",
               icon: Icon(Icons.home)
           ),
