@@ -17,7 +17,6 @@ class _State extends State<Home> {
   var _cep = TextEditingController();
 
   void _recuperarCep() async {
-
     String cep = _cep.text ?? "01001000";
     String parametro = "/ws/${cep}/json/";
     String urlApiCep = "viacep.com.br";
@@ -30,7 +29,6 @@ class _State extends State<Home> {
       _bairro = endereco["bairro"];
       _localidade = endereco["localidade"];
     });
-
   }
 
   @override
