@@ -76,7 +76,7 @@ flutter:
     - images/cara_coroa/moeda_cara.png
     - images/cara_coroa/moeda_coroa.png
     - images/preco_bitcoin/bitcoin.png
-
+    - images/youtube/logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
