@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart ';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estudo/youtube/biblioteca.dart';
+import 'package:flutter_estudo/youtube/custom_search_delegate.dart';
 import 'package:flutter_estudo/youtube/em_alta.dart';
 import 'package:flutter_estudo/youtube/inicio.dart';
 import 'package:flutter_estudo/youtube/inscricao.dart';
@@ -34,20 +35,13 @@ class _HomeState extends State<Home> {
           child: Image.asset("images/youtube/logo.png"),
         )),
         actions: [
-          // ElevatedButton.icon(
-          //     onPressed: (){},
-          //     icon: Icon(Icons.search_outlined),
-          //     label: Text("Pesquisar")
-          // )
-          IconButton(
-            icon: Icon(Icons.videocam),
-            onPressed: (){}),
           IconButton(
               icon: Icon(Icons.search),
-              onPressed: (){}),
-          IconButton(
-              icon: Icon(Icons.account_circle),
-              onPressed: (){}),
+              onPressed: () async {
+                String termoBuscar = await showSearch(context: context, delegate: CustomSearchDelegate());
+
+              }
+          ),
         ],
       ),
       body: Container(
