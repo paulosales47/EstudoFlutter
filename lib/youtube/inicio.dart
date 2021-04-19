@@ -4,6 +4,11 @@ import 'package:flutter_estudo/youtube/api.dart';
 import 'package:flutter_estudo/youtube/model/video.dart';
 
 class Inicio extends StatefulWidget {
+
+  String termoBusca;
+
+  Inicio(this.termoBusca);
+
   @override
   _InicioState createState() => _InicioState();
 }
@@ -15,12 +20,12 @@ class _InicioState extends State<Inicio> {
 
     final apiYouTube = ApiYoutube();
 
-    Future<List<Video>> _buscarVideos(){
-      return apiYouTube.pesquisar("");
+    Future<List<Video>> _buscarVideos(String termoBusca){
+      return apiYouTube.pesquisar(termoBusca);
     }
 
     return FutureBuilder<List<Video>>(
-      future: _buscarVideos(),
+      future: _buscarVideos(widget.termoBusca),
       builder: (context, snashot){
         if(snashot.connectionState == ConnectionState.waiting)
           return Center(child: CircularProgressIndicator());

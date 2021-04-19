@@ -15,15 +15,18 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _indiceNavegacao = 0;
-  List<Widget> _telas = [
-    Inicio(),
-    EmAlta(),
-    Inscricao(),
-    Biblioteca(),
-  ];
+  String _termoBusca = "";
 
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> _telas = [
+      Inicio(_termoBusca),
+      EmAlta(),
+      Inscricao(),
+      Biblioteca(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -38,8 +41,8 @@ class _HomeState extends State<Home> {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () async {
-                String termoBuscar = await showSearch(context: context, delegate: CustomSearchDelegate());
-
+                _termoBusca = await showSearch(context: context, delegate: CustomSearchDelegate());
+                setState(() {});
               }
           ),
         ],
@@ -70,11 +73,11 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
               label: "Inscrções",
-              icon: Icon(Icons.home)
+              icon: Icon(Icons.local_play)
           ),
           BottomNavigationBarItem(
               label: "Biblioteca",
-              icon: Icon(Icons.home)
+              icon: Icon(Icons.person)
           ),
         ],
       ),

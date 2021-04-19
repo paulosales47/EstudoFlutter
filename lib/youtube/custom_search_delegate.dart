@@ -14,7 +14,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
   Widget buildLeading(BuildContext context) {
     return
         IconButton(icon: Icon(Icons.arrow_back), onPressed: (){
-          close(context, null);
+          close(context, "");
         });
   }
 
@@ -26,7 +26,25 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container();
+
+    if(query.isNotEmpty){
+
+      List<String> sugestoes = ["android", "cars", "layout", "flutter", "dev"]
+          .where((element) => element.toLowerCase().contains(query.toLowerCase())).toList();
+
+      return ListView.builder(
+        itemCount: sugestoes.length,
+        itemBuilder: (context, indice){
+          return ListTile(
+            title: Text(sugestoes[indice]),
+            onTap: (){
+              close(context, sugestoes[indice]);
+            },
+          );
+        });
+    }
+    else
+      return Center(child: Text("Nenhum resultado para a pesquisa"));
   }
 
 }
