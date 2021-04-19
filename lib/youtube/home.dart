@@ -51,7 +51,10 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Container(
-        child: _telas[_indiceNavegacao],
+        child: Container(
+          padding: EdgeInsets.only(top: 10),
+          child: _telas[_indiceNavegacao],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Colors.red,

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_estudo/youtube/api.dart';
+import 'package:flutter_estudo/youtube/model/video.dart';
 
 class Inicio extends StatefulWidget {
   @override
@@ -12,12 +14,49 @@ class _InicioState extends State<Inicio> {
   Widget build(BuildContext context) {
 
     final apiYouTube = ApiYoutube();
-    apiYouTube.pesquisar("");
 
-    return Container(
-      child: Center(
-        child: Text("Inicio", style: TextStyle(fontSize: 25),),
-      ),
+    Future<List<Video>> _buscarVideos(){
+      return apiYouTube.pesquisar("");
+    }
+
+    return FutureBuilder<List<Video>>(
+      future: _buscarVideos(),
+      builder: (context, snashot){
+        if(snashot.connectionState == ConnectionState.waiting)
+          return Center(child: CircularProgressIndicator());
+        else if(snashot.connectionState == ConnectionState.done){
+          return ListView.separated(
+            separatorBuilder: (context, indice) => Divider(height: 2, color: Colors.black38),
+            itemCount: snashot.data.length,
+            itemBuilder: (context, indice){
+              return Column(
+                children: [
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(snashot.data[indice].imagem)
+                      )
+                    ),
+                  ),
+                  ListTile(
+                    title: Padding(
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      child: Text(snashot.data[indice].titulo)
+                    ),
+                    subtitle: Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Text(snashot.data[indice].descricao)
+                    ),
+                  )
+                ],
+              );
+            });
+        }
+
+        return Text("Erro ao carregar a lista de vídeos");
+      },
     );
   }
 }
